@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mi amor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            font-size: 20px;
+            width: 100%;
+            position: absolute;
+            top: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 90%;
+        }
+        .slider {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .slides img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: none;
+        }
+        .slides img.active {
+            display: block;
+        }
+        .message {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #333;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            text-align: center;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        .love-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .love {
+            position: absolute;
+            color: red;
+            font-size: 20px;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>MI AMOR</header>
+    <div class="container">
+        <div class="slider">
+            <div class="slides">
+                <img src="IMG/foto1.jpg" alt="Gambar 1" class="active">
+                <img src="IMG/foto2.jpg" alt="Gambar 2">
+                <img src="IMG/foto3.jpg" alt="Gambar 3">
+                <img src="IMG/foto4.jpg" alt="Gambar 4">
+                <img src="IMG/foto5.jpg" alt="Gambar 5">
+                <img src="IMG/foto6.jpg" alt="Gambar 6">
+            </div>
+        </div>
+        <div class="controls">
+            <button onclick="prevSlide()">Sebelumnya</button>
+            <button onclick="nextSlide()">Selanjutnya</button>
+        </div>
+
+        <div class="music">
+            <iframe id="spotifyPlayer" style="border-radius:12px;" src="https://open.spotify.com/embed/track/1fDFHXcykq4iw8Gg7s5hG9?si=c94b9eae043a4fde" width="300" height="80" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write;
+            encrypted-media; fullscreen; picture-in-picture"></iframe>
+        </div>
+        <div class="message">
+            <p>Haii sayangg! 💕<br>
+            Aku cuman mau bilang, setiap detik yang berlalu aku semakin bersyukur karena memiliki kamu di hidupku. Aku merindukanmu, aku rindu saat kita bisa bermain bersama dan menghabiskan waktu berdua. Aku ingin selalu menjadi alasan di setiap senyumanmu. <br><strong>I LOVE YOU SAYANGG! ❤️🌹✨</strong></p>
+        </div>
+    </div>
+    <div class="love-rain"></div>
+
+    <script>
+        let index = 0;
+
+        function showSlide() {
+            const slides = document.querySelectorAll('.slides img');
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+        }
+
+        function prevSlide() {
+            const totalSlides = document.querySelectorAll('.slides img').length;
+            index = (index - 1 + totalSlides) % totalSlides; 
+            showSlide();
+        }
+
+        function nextSlide() {
+            const totalSlides = document.querySelectorAll('.slides img').length;
+            index = (index + 1) % totalSlides;
+            showSlide();
+        }
+
+        function createLove() {
+            const love = document.createElement('div');
+            love.classList.add('love');
+            love.innerHTML = '❤️';
+            love.style.left = Math.random() * 100 + 'vw';
+            love.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.querySelector('.love-rain').appendChild(love);
+            setTimeout(() => love.remove(), 5000);`
+        }
+        setInterval(createLove, 300);
+    </script>
+</body>
+</html>
